@@ -32,6 +32,23 @@ app.get('/api/wineProfiles/getAll', (req, res) => {
     })
 })
 
+app.get('/api/wineProfiles/getColours', (req, res) => {
+  Colours.find({}, '-_id')
+    .exec((err, data) => {
+      if (err) throw err
+      res.json(data)
+    }
+    )
+})
+
+app.get('/api/wineProfiles/varietalProfile/:varietal', (req, res) => {
+  const varietal = req.params.varietal
+  Varietals.find({ varietal: varietal }, '-_id')
+    .exec((err, data) => {
+      if (err) throw err
+      res.json(data)
+    })
+})
 app.listen(config.port, () => {
   console.log(`listening on: ${config.host}/${config.port}`)
 })
